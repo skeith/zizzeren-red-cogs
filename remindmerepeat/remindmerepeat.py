@@ -15,7 +15,7 @@ class RemindMeRepeat:
         self.units = {"minute" : 60, "hour" : 3600, "day" : 86400, "week": 604800, "month": 2592000}
 
     @commands.command(pass_context=True)
-	@checks.is_owner()
+    @checks.is_owner()
     async def schedule(self, ctx, here : str, quantity : int, time_unit : str, *text : str):
         """Sends you <text> when the time is up, then repeats it after the same duration ad infinitum.
 
@@ -52,7 +52,7 @@ class RemindMeRepeat:
         fileIO("data/remindmerepeat/reminders.json", "save", self.reminders)
 
     @commands.command(pass_context=True)
-	@checks.is_owner()
+    @checks.is_owner()
     async def override(self, ctx):
         """Removes all your upcoming notifications"""
         author = ctx.message.author
