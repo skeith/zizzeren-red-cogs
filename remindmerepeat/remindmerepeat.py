@@ -20,11 +20,12 @@ class RemindMeRepeat:
     @checks.is_owner()
     async def schedule(self, ctx, here : str, start : str, quantity : int, time_unit : str, *text : str):
         """Sends you <text> when the time is up, then repeats it after the same duration ad infinitum.
+        Use [p]override to cancel all notifications that you set up.
 
         <here> should be the exact string "here" if you want the reminder in
         this channel. Put anything else if you want a PM.
         Accepts: seconds, minutes, hours, days, weeks, months, years
-		<start> is a date and time to start the notifications, in the exact
+        <start> is a date and time to start the notifications, in the exact
         format YYYY-MM-DD:HH:MM (Using 24 hour time), or "now".
         Example:
         [p]schedule nothere 2016-09-04:20:30 3 days Give cookies to Zizzeren
