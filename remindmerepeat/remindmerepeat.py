@@ -5,6 +5,7 @@ from .utils import checks
 import os
 import asyncio
 import time
+import datetime
 import logging
 
 class RemindMeRepeat:
@@ -13,27 +14,32 @@ class RemindMeRepeat:
     def __init__(self, bot):
         self.bot = bot
         self.reminders = fileIO("data/remindmerepeat/reminders.json", "load")
-        self.units = {"minute" : 60, "hour" : 3600, "day" : 86400, "week": 604800, "month": 2592000}
+        self.units = {"second" : 1, "minute" : 60, "hour" : 3600, "day" : 86400, "week": 604800, "month": 2592000, "year" : 31536000}
 
     @commands.command(pass_context=True)
     @checks.is_owner()
-    async def schedule(self, ctx, here : str, quantity : int, time_unit : str, *text : str):
+    async def schedule(self, ctx, here : str, start : str, quantity : int, time_unit : str, *text : str):
         """Sends you <text> when the time is up, then repeats it after the same duration ad infinitum.
 
-        If you say [p]remindmerepeat here, then I will remind you in this channel.
-        Otherwise, I will PM you. Put anything other than "here" if you want a pm.
-        Accepts: minutes, hours, days, weeks, month
+        <here> should be the exact string "here" if you want the reminder in
+        this channel. Put anything else if you want a PM.
+        Accepts: seconds, minutes, hours, days, weeks, months, years
+		<start> is a date and time to start the notifications, in the exact
+        format YYYY-MM-DD:HH:MM (Using 24 hour time), or "now".
         Example:
-        [p]remindmerepeat here 3 days Have sushi with Asu and JennJenn"""
+        [p]schedule nothere 2016-09-04:20:30 3 days Give cookies to Zizzeren
+        This will give you a reminder beginning the 4th of September, 2016, 
+        at 8:30pm bot time, repeating every 3 days at that time."""
         text = " ".join(text)
         time_unit = time_unit.lower()
         author = ctx.message.author
         s = ""
+        
         if time_unit.endswith("s"):
             time_unit = time_unit[:-1]
             s = "s"          
         if not time_unit in self.units:
-            await self.bot.say("Invalid time unit. Choose minutes/hours/days/weeks/month")
+            await self.bot.say("Invalid time unit. Choose seconds/minutes/hours/days/weeks/months/years")
             return
         if quantity < 1:
             await self.bot.say("Quantity must not be 0 or negative.")
@@ -41,15 +47,26 @@ class RemindMeRepeat:
         if len(text) > 1960:
             await self.bot.say("Text is too long.")
             return
+        try:
+            start = datetime.datetime.strptime(start, "%Y-%m-%d:%H:%M")
+        except (ValueError):
+            if start == "now":
+                start = datetime.datetime.now()
+            else:
+                await self.bot.say("Start date is invalid. Need format `YYYY-MM-DD:HH:MM`, or `now`.")
+                return
         channel = None
         if here == "here":
             channel = ctx.message.channel.id
 
         seconds = self.units[time_unit] * quantity
-        future = int(time.time()+seconds)
+        future = int(start.timestamp() + seconds)
+        
         self.reminders.append({"ID" : author.id, "CHANNEL" : channel, "DURATION" : seconds, "FUTURE" : future, "TEXT" : text})
+        
         logger.info("{} ({}) set a reminder.".format(author.name, author.id))
-        await self.bot.say("I will remind you of that every {} {}.".format(str(quantity), time_unit + s))
+        await self.bot.say("I will remind you of that every {} {} from {}.".format(str(quantity), time_unit + s, start.strftime("%Y-%m-%d:%H:%M")))
+        
         fileIO("data/remindmerepeat/reminders.json", "save", self.reminders)
 
     @commands.command(pass_context=True)
