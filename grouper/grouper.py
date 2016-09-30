@@ -37,7 +37,8 @@ class Grouper:
         chunks = [self.registered_users[x:x+size] for x in range(0, len(self.registered_users), size)]
         for group in chunks:
             for m in group:
-                m = self.bot.get_user_info(m).mention
+                m = await self.bot.get_user_info(m)
+                m = m.mention
         await self.bot.say(chunks)
 
 def setup(bot):
