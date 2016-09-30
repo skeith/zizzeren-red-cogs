@@ -22,15 +22,14 @@ class Now:
         est = utc + timedelta(hours=-4)
         germany = utc + timedelta(hours=1)
 
-        await self.bot.say("```
+        await self.bot.say("""```
         Singapore/Malaysia  - {}    (0verride's time! :flag_sg:)
         PST                 - {}
         EST                 - {}
         Germany/Italy       - {}
-        Italy               - {}
         New Zealand         - {}    (Kur0's time! :flag_nz:)
         UTC                 - {}
-        ```".format(singapore, pst, est, germany, nz, utc))
+        ```""".format(singapore, pst, est, germany, nz, utc))
 
 def setup(bot):
     n = RemindMeRepeat(bot)
