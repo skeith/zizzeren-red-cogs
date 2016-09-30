@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import os
 from random import shuffle
+from __main__ import send_cmd_help
 
 class Grouper:
     """Groups registered people into groups"""
@@ -16,7 +17,7 @@ class Grouper:
         if ctx.invoked_subcommand is None:
             await send_cmd_help(ctx)
 
-    @_raid.command(name="register")
+    @_raid.command(name="register", pass_context=True))
     async def _register(self, ctx):
         """Register yourself for the next raid.
         
@@ -28,7 +29,7 @@ class Grouper:
             self.registered_users.remove(ctx.message.author.id)
             await self.bot.say("You won't be invited to the next raid.")
 
-    @_raid.command(name="start")
+    @_raid.command(name="start", pass_context=True)
     async def _start(self, ctx, size : int):
         """Groups the registered users into groups
         of size <size>."""
