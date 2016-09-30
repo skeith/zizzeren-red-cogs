@@ -32,5 +32,5 @@ class Now:
         ```""".format(singapore, pst, est, germany, nz, utc))
 
 def setup(bot):
-    n = RemindMeRepeat(bot)
+    n = Now(bot)
     bot.add_cog(n)
