@@ -31,5 +31,5 @@ New Zealand               - {}    (Kur0's time! :flag_nz: )
 UTC                               - {}    :flag_gb:""".format(singapore, pst, est, germany, nz, utc))
 
 def setup(bot):
-    n = Now(bot)
-    bot.add_cog(n)
+    now = Now(bot)
+    bot.add_cog(now)
