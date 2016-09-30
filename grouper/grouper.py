@@ -24,7 +24,7 @@ class Grouper:
         if ctx.message.author.id not in self.registered_users:
             self.registered_users.append(ctx.message.author.id)
             await self.bot.say("You'll be invited to the next raid!")
-        else
+        else:
             self.registered_users.remove(ctx.message.author.id)
             await self.bot.say("You won't be invited to the next raid.")
 
