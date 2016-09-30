@@ -40,6 +40,7 @@ class Grouper:
         #        m = await self.bot.get_user_info(m)
         #        m = m.mention
         await self.bot.say(chunks)
+        self.registered_users = []
 
 def setup(bot):
     n = Grouper(bot)

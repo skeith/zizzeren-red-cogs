@@ -16,11 +16,11 @@ class Now:
     async def now(self, ctx):
         """Says the time in a bunch of timezones."""
         utc = datetime.utcnow()
-        nz = utc + timedelta(hours=12)
+        nz = utc + timedelta(hours=13)
         singapore = utc + timedelta(hours=8)
-        pst = utc + timedelta(hours=-8)
+        pst = utc + timedelta(hours=-7)
         est = utc + timedelta(hours=-4)
-        germany = utc + timedelta(hours=1)
+        germany = utc + timedelta(hours=2)
 
         await self.bot.say("""
 Singapore/Malaysia  - {}    (0verride's time! :flag_sg: )
