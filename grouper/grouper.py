@@ -17,7 +17,7 @@ class Grouper:
         if ctx.invoked_subcommand is None:
             await send_cmd_help(ctx)
 
-    @_raid.command(name="register", pass_context=True))
+    @_raid.command(name="register", pass_context=True)
     async def _register(self, ctx):
         """Register yourself for the next raid.
         
