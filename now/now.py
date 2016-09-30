@@ -15,7 +15,7 @@ class Now:
     @commands.command(pass_context=True)
     async def now(self, ctx):
         """Says the time in a bunch of timezones."""
-        utc = datetime.datetime.utcnow()
+        utc = datetime.utcnow()
         nz = utc + timedelta(hours=12)
         singapore = utc + timedelta(hours=8)
         pst = utc + timedelta(hours=-8)
