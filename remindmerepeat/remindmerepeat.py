@@ -17,16 +17,17 @@ class RemindMeRepeat:
         self.units = {"second" : 1, "minute" : 60, "hour" : 3600, "day" : 86400, "week": 604800, "month": 2592000, "year" : 31536000}
 
     @commands.command(pass_context=True)
-    @checks.is_owner()
     async def schedule(self, ctx, here : str, start : str, quantity : int, time_unit : str, *text : str):
         """Sends you <text> when the time is up, then repeats it after the same duration ad infinitum.
         Use [p]override to cancel all notifications that you set up.
 
         <here> should be the exact string "here" if you want the reminder in
         this channel. Put anything else if you want a PM.
+
         Accepts: seconds, minutes, hours, days, weeks, months, years
         <start> is a date and time to start the notifications, in the exact
         format YYYY-MM-DD:HH:MM (Using 24 hour time), or "now".
+
         Example:
         [p]schedule nothere 2016-09-04:20:30 3 days Give cookies to Zizzeren
         This will give you a reminder beginning the 4th of September, 2016, 
@@ -71,7 +72,6 @@ class RemindMeRepeat:
         fileIO("data/remindmerepeat/reminders.json", "save", self.reminders)
 
     @commands.command(pass_context=True)
-    @checks.is_owner()
     async def override(self, ctx):
         """Removes all your upcoming notifications"""
         author = ctx.message.author
@@ -87,6 +87,11 @@ class RemindMeRepeat:
             await self.bot.say("All your notifications have been removed.")
         else:
             await self.bot.say("You don't have any upcoming notification.")
+
+    @commands.command(pass_context=True)
+    async def time(self, ctx):
+        """What time is it for me?"""
+        await self.bot.say("The time here is {}!".format(datetime.datetime.now()))
 
     async def check_reminders(self):
         while "RemindMeRepeat" in self.bot.cogs:
