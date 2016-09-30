@@ -34,7 +34,7 @@ class Grouper:
         """Groups the registered users into groups
         of size <size>."""
         shuffle(self.registered_users)
-        chunks = [data[x:x+size] for x in range(0, len(data), size)]
+        chunks = [data[x:x+size] for x in range(0, len(chunks), size)]
         for group in chunks:
             for m in group:
                 m = self.bot.get_user_info(m).mention
