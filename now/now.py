@@ -3,7 +3,7 @@ from discord.ext import commands
 from .utils.dataIO import fileIO
 import os
 import time
-import datetime
+from datetime import datetime, timedelta
 import logging
 
 class Now:
