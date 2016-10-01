@@ -35,11 +35,18 @@ class Grouper:
         of size <size>."""
         shuffle(self.registered_users)
         chunks = [self.registered_users[x:x+size] for x in range(0, len(self.registered_users), size)]
-        #for group in chunks:
-        #    for m in group:
-        #        m = await self.bot.get_user_info(m)
-        #        m = m.mention
-        await self.bot.say(chunks)
+        
+        groups_strs = []
+        for groups in chunks:
+            group = []
+            for user in groups:
+                user = await self.bot.get_user_info(user)
+                group.append(user.mention)
+            groups_strs.append(", ".join(group))
+
+        await self.bot.say("""A raid has been requested! The groups are as follows:
+{}
+Good luck!""".format("\n".join(groups_strs)))
         self.registered_users = []
 
 def setup(bot):
