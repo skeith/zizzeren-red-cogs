@@ -46,7 +46,7 @@ class Grouper:
 
         await self.bot.say("""A raid has been requested! The groups are as follows:
 {}
-Good luck!""".format("\n".join(groups_strs)))
+Good luck!""".format("\n        ".join(groups_strs)))
         self.registered_users = []
 
 def setup(bot):
