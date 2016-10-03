@@ -53,7 +53,7 @@ Good luck!""".format("\n        ".join(groups_strs)))
     async def _list(self, ctx):
         """Pings everyone that's currently registered for a raid."""
         users = []
-        for user in groups:
+        for user in self.registered_users:
             user = await self.bot.get_user_info(user)
             users.append(user.mention)
 
