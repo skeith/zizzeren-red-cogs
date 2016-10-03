@@ -8,11 +8,11 @@ import time
 def seconds_to_string(seconds):
     m, s = divmod(seconds, 60)
     h, m = divmod(m, 60)
-    h = int(h+1)
-    m = int(m+1)
     if h == 0:
+        h = int(h+1)
         return "{} minutes".format(m)
     else:
+        m = int(m+1)
         return "{} hours".format(h)
 
 class RaidManager:
