@@ -41,7 +41,7 @@ class RaidManager:
         start_time_future = int(time.time() + seconds)
         length_seconds = self.units[u_length] * length
 
-        self.registered_users[ctx.message.author.id] = { "mention" : mention(ctx.message.author.id], "type" : raid_type.lower(), "start_time" : start_time_future, "length" : length_seconds}
+        self.registered_users[ctx.message.author.id] = { "mention" : mention(ctx.message.author.id), "type" : raid_type.lower(), "start_time" : start_time_future, "length" : length_seconds }
 
         await self.bot.say("You've been registered for raid type: {}, starting {} {} from now, and you're free for {} {}!".format(raid_type, start_time, u_start_time, length, u_length))
 
