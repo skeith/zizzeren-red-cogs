@@ -25,8 +25,8 @@ class RaidManager:
         self.units = {"minute" : 60, "hour" : 3600}
 
     def check_expired(self):
-        for user in self.registered_users:
-            if user["start_time"] + user["length"] >= int(time.time()):
+        for user, data in self.registered_users.items():
+            if data["start_time"] + data["length"] >= int(time.time()):
                 del self.registered_users[user]
 
     @commands.group(name="raid", pass_context=True)
