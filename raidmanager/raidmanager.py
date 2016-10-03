@@ -31,10 +31,10 @@ class RaidManager:
         <start-time units> and <length units> are like `4 hours`"""
         # Sanity checking
         if raid_type.lower() not in self.raid_types:
-            await self.bot.say("That's not a valid raid type! Try `{}`".format(", ".join(self.raid_types)
+            await self.bot.say("That's not a valid raid type! Try `{}`".format(", ".join(self.raid_types)))
             return
         if u_start_time.lower() not in self.units or u_length.lower() not in self.units:
-            await self.bot.say("That's not a time unit! Try `{}`".format(", ".join(self.units)
+            await self.bot.say("That's not a time unit! Try `{}`".format(", ".join(self.units)))
             return
 
         start_time_seconds = self.units[u_start_time] * start_time
@@ -43,7 +43,7 @@ class RaidManager:
 
         self.registered_users[ctx.message.author.id] = { "mention" : mention(ctx.message.author.id], "type" : raid_type.lower(), "start_time" : start_time_future, "length" : length_seconds}
 
-        await self.bot.say("You've been registered for raid type: {}, starting {} {} from now, and you're free for {} {}!".format(raid_type, start_time, u_start_time, length, u_length)
+        await self.bot.say("You've been registered for raid type: {}, starting {} {} from now, and you're free for {} {}!".format(raid_type, start_time, u_start_time, length, u_length))
 
     @_raid.command(name="start", pass_context=True)
     async def _start(self, ctx, size : int):
