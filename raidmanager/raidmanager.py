@@ -66,13 +66,13 @@ class RaidManager:
         await self.bot.say("You've been registered for raid type: {}, starting {} {} from now, and you're free for {} {}!".format(raid_type, start_time, u_start_time, length, u_length))
 
     @_raid.command(name="start", pass_context=True)
-    async def _start(self, ctx, raid_type : str, size : int, time : int, t_units : str):
+    async def _start(self, ctx, raid_type : str, size : int, time_away : int, t_units : str):
         """Start a raid!
 
         Specify your group size, what kind of raid you want, and when you want to start:
-        [p]raid start <type> <size> <time units>
+        [p]raid start <type> <size> <time_away units>
         where <type> is "PQ", "RaidersRaid", "CountRaids", "Everything"
-        and <time units> is like '10 minutes'.
+        and <time_away units> is like '10 minutes'.
         Valid units are minutes and hours."""
 
         # Sanity checking
@@ -84,7 +84,7 @@ class RaidManager:
             return
 
         # { "user.id" : { "mention" : discord.Mention, "type" : "pq", "start_time" : 123456, "length" : 1234 } }
-        start_time_seconds = self.units[t_units] * time
+        start_time_seconds = self.units[t_units] * time_away
         start_time_future = int(time.time() + start_time_seconds)
         # For all the users in the specified raid type
         #   If the start time lands in their available time window
