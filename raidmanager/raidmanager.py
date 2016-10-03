@@ -9,9 +9,9 @@ def seconds_to_string(seconds):
     m, s = divmod(seconds, 60)
     h, m = divmod(m, 60)
     if h == 0:
-        return "{} minutes".format(m)
+        return "{} minutes".format(int(m))
     else:
-        return "{} hours".format(h)
+        return "{} hours".format(int(h))
 
 class RaidManager:
     """Groups registered people into groups"""
@@ -73,6 +73,8 @@ class RaidManager:
         and <time_away units> is like '10 minutes'.
         Valid units are minutes and hours."""
 
+        self.check_expired()
+
         # Sanity checking
         if raid_type.lower() not in self.raid_types:
             await self.bot.say("That's not a valid raid type! Try `{}`".format(", ".join(self.raid_types)))
@@ -108,8 +110,8 @@ class RaidManager:
                 group.append(user)
             groups_strs.append(", ".join(group))
 
-        await self.bot.say("""A {} raid has been requested! The groups are as follows:
-{}\nGood luck!""".format(raid_type, "\n        ".join(groups_strs)))
+        await self.bot.say("""A **{}** raid has been requested! The groups are as follows:
+        {}\nGood luck!""".format(raid_type, "\n        ".join(groups_strs)))
 
 
     @_raid.command(name="list", pass_context=True)
