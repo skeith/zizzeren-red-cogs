@@ -83,7 +83,7 @@ Good luck!""".format("\n        ".join(groups_strs)))
     @_raid.command(name="list", pass_context=True)
     async def _list(self, ctx):
         """Shows who is registered for what raid, and when."""
-        check_expired()
+        self.check_expired()
 
         # For each element in self.registered_users
         # Add them to users_by_type as an element of the array indexed by key "type"
