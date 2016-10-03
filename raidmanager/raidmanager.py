@@ -3,6 +3,7 @@ from discord.ext import commands
 import os
 from random import shuffle
 from __main__ import send_cmd_help
+import time
 
 class RaidManager:
     """Groups registered people into groups"""
@@ -14,6 +15,19 @@ class RaidManager:
         self.registered_users = {}
         self.raid_types = ["pq", "raidersraid", "countraids", "everything"]
         self.units = {"minute" : 60, "hour" : 3600}
+
+    def check_expired():
+        for user in self.registered_users:
+            if user["start_time"] + user["length"] >= int(time.time()):
+                del self.registered_users[user]
+
+    def seconds_to_string(seconds):
+        m, s = divmod(seconds, 60)
+        h, m = divmod(m, 60)
+        if h == 0:
+            return "{} minutes".format(m)
+        else:
+            return "{} hours".format(h)
 
     @commands.group(name="raid", pass_context=True)
     async def _raid(self, ctx):
@@ -27,7 +41,7 @@ class RaidManager:
         `[p]raid register <raid-type> <start-time units> <length units>`
 
         where raid-type is: 
-        "MiniPQ", "FrenzyPQ", RaidersRaid", "CountRaids", or "Everything"
+        "PQ", RaidersRaid", "CountRaids", or "Everything"
         <start-time units> and <length units> are like `4 hours`"""
         # Sanity checking
         if raid_type.lower() not in self.raid_types:
@@ -90,19 +104,6 @@ Good luck!""".format("\n        ".join(groups_strs)))
             type_strs.append("**{}:**\n{}".format(raid_type, "\n".join(data)))
 
         await self.bot.say("Registered users for upcoming raids:\n{}".format("\n".join(type_strs)))
-
-    def check_expired():
-        for user in self.registered_users:
-            if user["start_time"] + user["length"] >= int(time.time()):
-                del self.registered_users[user]
-
-    def seconds_to_string(seconds):
-        m, s = divmod(seconds, 60)
-        h, m = divmod(m, 60)
-        if h == 0:
-            return "{} minutes".format(m)
-        else:
-            return "{} hours".format(h)
 
 def setup(bot):
     n = RaidManager(bot)
