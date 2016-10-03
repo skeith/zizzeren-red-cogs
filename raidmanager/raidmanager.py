@@ -99,7 +99,7 @@ class RaidManager:
 
         # Randomise the raid group, and chunk it into several groups of the specified size
         
-        group.shuffle()
+        shuffle(group)
         chunks = [group[x:x+size] for x in range(0, len(group), size)]
 
         groups_strs = []
