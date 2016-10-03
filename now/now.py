@@ -19,7 +19,7 @@ class Now:
         nz = utc + timedelta(hours=13)
         singapore = utc + timedelta(hours=8)
         pst = utc + timedelta(hours=-7)
-        est = utc + timedelta(hours=-4)
+        est = utc + timedelta(hours=-3)
         germany = utc + timedelta(hours=2)
 
         await self.bot.say("""
