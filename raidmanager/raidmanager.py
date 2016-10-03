@@ -89,7 +89,7 @@ Good luck!""".format("\n        ".join(groups_strs)))
         # Add them to users_by_type as an element of the array indexed by key "type"
         # This has data { "mention" : discord.Mention", "start_time" : int, "length" : int }
         users_by_type = {"pq" : [], "raidersraid" : [], "countraids" : [], "everything" : []}
-        for user, data in self.registered_users:
+        for user, data in self.registered_users.items():
             if data["start_time"] - int(time.time()) <= 0:
                 # Their period has begun
                 users_by_type[data["type"]].append("{}: Ready now, and for another {}!".format(data["mention"], seconds_to_string(data["length"] - (time.time() - data["start_time"]))))
@@ -100,7 +100,7 @@ Good luck!""".format("\n        ".join(groups_strs)))
         # For each element in users_by_type
         # Format a string for each user describing the contents of their data
         type_strs = []
-        for raid_type, data in users_by_type:
+        for raid_type, data in users_by_type.items():
             type_strs.append("**{}:**\n{}".format(raid_type, "\n".join(data)))
 
         await self.bot.say("Registered users for upcoming raids:\n{}".format("\n".join(type_strs)))
