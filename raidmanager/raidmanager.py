@@ -27,7 +27,7 @@ class RaidManager:
     def check_expired(self):
         to_remove = []
         for user, data in self.registered_users.items():
-            if data["start_time"] + data["length"] >= int(time.time()):
+            if data["start_time"] + data["length"] <= int(time.time()):
                 to_remove.append(user)
         for user in to_remove:
             del self.registered_users[user]
