@@ -66,25 +66,54 @@ class RaidManager:
         await self.bot.say("You've been registered for raid type: {}, starting {} {} from now, and you're free for {} {}!".format(raid_type, start_time, u_start_time, length, u_length))
 
     @_raid.command(name="start", pass_context=True)
-    async def _start(self, ctx, size : int):
-        """Groups the registered users into groups
-        of size <size>."""
-        #shuffle(self.registered_users)
-        # Divides an array into an array of arrays of a specified size
-        chunks = [self.registered_users[x:x+size] for x in range(0, len(self.registered_users), size)]
-        
-        #groups_strs = []
-        #for groups in chunks:
-        #    group = []
-        #    for user in groups:
-        #        user = await self.bot.get_user_info(user)
-        #        group.append(user.mention)
-        #    groups_strs.append(", ".join(group))
+    async def _start(self, ctx, raid_type : str, size : int, time : int, t_units : str):
+        """Start a raid!
 
-        await self.bot.say("""A raid has been requested! The groups are as follows:
-{}
-Good luck!""".format("\n        ".join(groups_strs)))
-        self.registered_users = []
+        Specify your group size, what kind of raid you want, and when you want to start:
+        [p]raid start <type> <size> <time units>
+        where <type> is "PQ", "RaidersRaid", "CountRaids", "Everything"
+        and <time units> is like '10 minutes'.
+        Valid units are minutes and hours."""
+
+        # Sanity checking
+        if raid_type.lower() not in self.raid_types:
+            await self.bot.say("That's not a valid raid type! Try `{}`".format(", ".join(self.raid_types)))
+            return
+        if t_units.lower() not in self.units:
+            await self.bot.say("That's not a time unit! Try `{}`".format(", ".join(self.units)))
+            return
+
+        # { "user.id" : { "mention" : discord.Mention, "type" : "pq", "start_time" : 123456, "length" : 1234 } }
+        start_time_seconds = self.units[t_units] * time
+        start_time_future = int(time.time() + start_time_seconds)
+        # For all the users in the specified raid type
+        #   If the start time lands in their available time window
+        #       Add them to the raid group
+        group = []
+        
+        for user, data in self.registered_users.items():
+            if data["type"] is raid_type.lower():
+                if start_time_future <= data["start_time"] + data["length"]:
+                    if start_time_future >= data["start_time"]:
+                        group.append(user)
+
+        # Randomise the raid group, and chunk it into several groups of the specified size
+        
+        group.shuffle()
+        chunks = [group[x:x+size] for x in range(0, len(group), size)]
+
+        groups_strs = []
+        for groups in chunks:
+            group = []
+            for user in groups:
+                user = self.registered_users[user]["mention"]
+                group.append(user)
+                del self.registered_users[user]
+            groups_strs.append(", ".join(group))
+
+        await self.bot.say("""A {} raid has been requested! The groups are as follows:
+{}\nGood luck!""".format(raid_type, "\n        ".join(groups_strs)))
+
 
     @_raid.command(name="list", pass_context=True)
     async def _list(self, ctx):
