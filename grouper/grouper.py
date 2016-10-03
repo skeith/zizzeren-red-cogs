@@ -49,6 +49,18 @@ class Grouper:
 Good luck!""".format("\n        ".join(groups_strs)))
         self.registered_users = []
 
+    @_raid.command(name="list", pass_context=True)
+    async def _list(self, ctx):
+        """Pings everyone that's currently registered for a raid."""
+        users = []
+        for user in groups:
+            user = await self.bot.get_user_info(user)
+            users.append(user.mention)
+
+        await self.bot.say("""These are the users currenty registered for a raid!
+{}""".format(", ".join(users)))
+        
+
 def setup(bot):
     n = Grouper(bot)
     bot.add_cog(n)
