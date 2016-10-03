@@ -9,9 +9,9 @@ def seconds_to_string(seconds):
     m, s = divmod(seconds, 60)
     h, m = divmod(m, 60)
     if h == 0:
-        return "{} minutes".format(m+1)
+        return "{} minutes".format(m)
     else:
-        return "{} hours".format(h+1)
+        return "{} hours".format(h)
 
 class RaidManager:
     """Groups registered people into groups"""
@@ -106,7 +106,6 @@ class RaidManager:
             for user in groups:
                 user = self.registered_users[user]["mention"]
                 group.append(user)
-                del self.registered_users[user]
             groups_strs.append(", ".join(group))
 
         await self.bot.say("""A {} raid has been requested! The groups are as follows:
