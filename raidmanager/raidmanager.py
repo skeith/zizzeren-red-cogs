@@ -45,7 +45,7 @@ class RaidManager:
         [p]raid register <raid-type> <start-time units> <length units>
 
         where raid-type is: 
-        "PQ", RaidersRaid", "CountRaids", or "Everything"
+        "PQ", "RaidersRaid", "CountRaids", or "Everything"
         <start_time u_start_time> and <length u_length> are like '4 hours'"""
         # Sanity checking
         if raid_type.lower() not in self.raid_types:
