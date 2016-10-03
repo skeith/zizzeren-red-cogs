@@ -5,11 +5,6 @@ from random import shuffle
 from __main__ import send_cmd_help
 import time
 
-def check_expired():
-    for user in self.registered_users:
-        if user["start_time"] + user["length"] >= int(time.time()):
-            del self.registered_users[user]
-
 def seconds_to_string(seconds):
     m, s = divmod(seconds, 60)
     h, m = divmod(m, 60)
@@ -28,6 +23,11 @@ class RaidManager:
         self.registered_users = {}
         self.raid_types = ["pq", "raidersraid", "countraids", "everything"]
         self.units = {"minute" : 60, "hour" : 3600}
+
+    def check_expired():
+        for user in self.registered_users:
+            if user["start_time"] + user["length"] >= int(time.time()):
+                del self.registered_users[user]
 
     @commands.group(name="raid", pass_context=True)
     async def _raid(self, ctx):
