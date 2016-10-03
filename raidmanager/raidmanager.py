@@ -115,7 +115,7 @@ Good luck!""".format("\n        ".join(groups_strs)))
     async def _clear(self, ctx):
         """Clear yourself from any upcoming raids."""
         del self.registered_users[ctx.message.author]
-        await self.bot.say("You've been cleared from the upcoming raids."
+        await self.bot.say("You've been cleared from the upcoming raids.")
 
 def setup(bot):
     n = RaidManager(bot)
