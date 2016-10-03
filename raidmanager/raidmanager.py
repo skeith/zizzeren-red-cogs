@@ -10,9 +10,9 @@ class RaidManager:
     def __init__(self, bot):
         self.bot = bot
         # Looks like 
-        # { "user.id" : { "mention" : discord.Mention, "type" : "minipq", "start_time" : 123456, "length" : 1234 } }
+        # { "user.id" : { "mention" : discord.Mention, "type" : "pq", "start_time" : 123456, "length" : 1234 } }
         self.registered_users = {}
-        self.raid_types = ["minipq", "frenzypq", "raidersraid", "countraids", "everything"]
+        self.raid_types = ["pq", "raidersraid", "countraids", "everything"]
         self.units = {"minute" : 60, "hour" : 3600}
 
     @commands.group(name="raid", pass_context=True)
@@ -41,7 +41,7 @@ class RaidManager:
         start_time_future = int(time.time() + seconds)
         length_seconds = self.units[u_length] * length
 
-        self.registered_users[ctx.message.author.id] = { "mention" : mention(ctx.message.author.id), "type" : raid_type.lower(), "start_time" : start_time_future, "length" : length_seconds }
+        self.registered_users[ctx.message.author] = { "mention" : ctx.message.author.mention, "type" : raid_type.lower(), "start_time" : start_time_future, "length" : length_seconds }
 
         await self.bot.say("You've been registered for raid type: {}, starting {} {} from now, and you're free for {} {}!".format(raid_type, start_time, u_start_time, length, u_length))
 
@@ -74,7 +74,7 @@ Good luck!""".format("\n        ".join(groups_strs)))
         # For each element in self.registered_users
         # Add them to users_by_type as an element of the array indexed by key "type"
         # This has data { "mention" : discord.Mention", "start_time" : int, "length" : int }
-        users_by_type = {"minipq" : [], "frenzypq" : [], "raidersraid" : [], "countraids" : [], "everything" : []}
+        users_by_type = {"pq" : [], "raidersraid" : [], "countraids" : [], "everything" : []}
         for user, data in self.registered_users:
             if data["start_time"] - int(time.time()) <= 0:
                 # Their period has begun
@@ -91,10 +91,6 @@ Good luck!""".format("\n        ".join(groups_strs)))
 
         await self.bot.say("Registered users for upcoming raids:\n{}".format("\n".join(type_strs)))
 
-    def mention(user : int):
-        user_info = await self.bot.get_user_info(user)
-        return user_info.mention
-        
     def check_expired():
         for user in self.registered_users:
             if user["start_time"] + user["length"] >= int(time.time()):
