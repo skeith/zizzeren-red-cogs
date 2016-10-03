@@ -8,6 +8,8 @@ import time
 def seconds_to_string(seconds):
     m, s = divmod(seconds, 60)
     h, m = divmod(m, 60)
+    h = int(h+1)
+    m = int(m+1)
     if h == 0:
         return "{} minutes".format(m)
     else:
@@ -22,7 +24,7 @@ class RaidManager:
         # { "user.id" : { "mention" : discord.Mention, "type" : "pq", "start_time" : 123456, "length" : 1234 } }
         self.registered_users = {}
         self.raid_types = ["pq", "raidersraid", "countraids", "everything"]
-        self.units = {"minute" : 60, "hour" : 3600}
+        self.units = {"minute" : 60, "minutes" : 60, "hour" : 3600, "hours" : 3600}
 
     def check_expired(self):
         to_remove = []
@@ -40,12 +42,13 @@ class RaidManager:
 
     @_raid.command(name="register", pass_context=True)
     async def _register(self, ctx, raid_type : str, start_time : int, u_start_time : str, length : int, u_length : str):
-        """Register yourself for the next raid. Usage:
-        `[p]raid register <raid-type> <start-time units> <length units>`
+        """Register yourself for the next raid. 
+        Usage:
+        [p]raid register <raid-type> <start-time units> <length units>
 
         where raid-type is: 
         "PQ", RaidersRaid", "CountRaids", or "Everything"
-        <start-time units> and <length units> are like `4 hours`"""
+        <start_time u_start_time> and <length u_length> are like '4 hours'"""
         # Sanity checking
         if raid_type.lower() not in self.raid_types:
             await self.bot.say("That's not a valid raid type! Try `{}`".format(", ".join(self.raid_types)))
@@ -107,6 +110,12 @@ Good luck!""".format("\n        ".join(groups_strs)))
             type_strs.append("**{}:**\n{}".format(raid_type, "\n".join(data)))
 
         await self.bot.say("Registered users for upcoming raids:\n{}".format("\n".join(type_strs)))
+
+    @_raid.command(name="clear", pass_context=True)
+    async def _clear(self, ctx):
+        """Clear yourself from any upcoming raids."""
+        del self.registered_users[ctx.message.author]
+        await self.bot.say("You've been cleared from the upcoming raids."
 
 def setup(bot):
     n = RaidManager(bot)
