@@ -24,7 +24,7 @@ class RaidManager:
         self.raid_types = ["pq", "raidersraid", "countraids", "everything"]
         self.units = {"minute" : 60, "hour" : 3600}
 
-    def check_expired(ctx):
+    def check_expired(self, ctx):
         for user in self.registered_users:
             if user["start_time"] + user["length"] >= int(time.time()):
                 del self.registered_users[user]
