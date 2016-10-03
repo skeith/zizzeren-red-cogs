@@ -99,7 +99,6 @@ class RaidManager:
         
         shuffle(group)
         chunks = [group[x:x+size] for x in range(0, len(group), size)]
-        chunks = [[group[0]]]
 
         groups_strs = []
         for groups in chunks:
