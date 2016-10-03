@@ -9,11 +9,9 @@ def seconds_to_string(seconds):
     m, s = divmod(seconds, 60)
     h, m = divmod(m, 60)
     if h == 0:
-        h = int(h+1)
-        return "{} minutes".format(m)
+        return "{} minutes".format(m+1)
     else:
-        m = int(m+1)
-        return "{} hours".format(h)
+        return "{} hours".format(h+1)
 
 class RaidManager:
     """Groups registered people into groups"""
@@ -92,7 +90,7 @@ class RaidManager:
         group = []
         
         for user, data in self.registered_users.items():
-            if data["type"] is raid_type.lower():
+            if data["type"].lower() == raid_type.lower():
                 if start_time_future <= data["start_time"] + data["length"]:
                     if start_time_future >= data["start_time"]:
                         group.append(user)
@@ -100,7 +98,8 @@ class RaidManager:
         # Randomise the raid group, and chunk it into several groups of the specified size
         
         shuffle(group)
-        chunks = [group[x:x+size] for x in range(0, len(group), size)]
+        #chunks = [group[x:x+size] for x in range(0, len(group), size)]
+        chunks = group
 
         groups_strs = []
         for groups in chunks:
