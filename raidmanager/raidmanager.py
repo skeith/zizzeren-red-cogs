@@ -92,7 +92,8 @@ Good luck!""".format("\n        ".join(groups_strs)))
         await self.bot.say("Registered users for upcoming raids:\n{}".format("\n".join(type_strs)))
 
     def mention(user):
-        return await self.bot.get_user_info(user).mention
+        o_user = await self.bot.get_user_info(user)
+        return o_user.mention
         
     def check_expired():
         for user in self.registered_users:
