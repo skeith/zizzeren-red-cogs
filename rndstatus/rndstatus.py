@@ -20,7 +20,6 @@ class RandomStatus:
         self.last_change = None
 
     @commands.group(pass_context=True)
-    @checks.admin_or_permissions(administrator=True)
     async def rndstatus(self, ctx):
         if ctx.invoked_subcommand is None:
             await send_cmd_help(ctx)
@@ -42,6 +41,7 @@ class RandomStatus:
         await self.bot.say("Added `" + ", ".join(statuses) + "` to rndstatus list.")
 
     @rndstatus.command(name="remove")
+    @checks.admin_or_permissions(administrator=True)
     async def _remove(self, *statuses : str):
         """Remove a status from Red's set
 
@@ -58,6 +58,7 @@ class RandomStatus:
         await self.bot.say("Removed `" + ", ".join(statuses) + "` from rndstatus list.")
 
     @rndstatus.command(name="list")
+    @checks.admin_or_permissions(administrator=True)
     async def _list(self):
         """Lists the current rndstatus list."""
 
