@@ -30,7 +30,7 @@ PST                                - {}    :flag_us:
 EST                                - {}    :flag_ca:
 Germany/Italy            - {}    :flag_de:
 New Zealand               - {}    :flag_nz: (Kur0's time!)
-UTC                               - {}    :flag_gb:""".format(singapore, pst, est, germany, nz, utc))
+UTC                               - {}    :flag_gb:""".format(korea, singapore, pst, est, germany, nz, utc))
 
 def setup(bot):
     now = Now(bot)
