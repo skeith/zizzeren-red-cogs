@@ -21,13 +21,15 @@ class Now:
         pst = utc + timedelta(hours=-7)
         est = utc + timedelta(hours=-3)
         germany = utc + timedelta(hours=2)
+        korea = utc + timedela(hours=9)
 
         await self.bot.say("""
-Singapore/Malaysia  - {}    (0verride's time! :flag_sg: )
+Korea                            - {}    :flag_kr:
+Singapore/Malaysia  - {}    :flag_sg: (0verride's time!)
 PST                                - {}    :flag_us:
 EST                                - {}    :flag_ca:
 Germany/Italy            - {}    :flag_de:
-New Zealand               - {}    (Kur0's time! :flag_nz: )
+New Zealand               - {}    :flag_nz: (Kur0's time!)
 UTC                               - {}    :flag_gb:""".format(singapore, pst, est, germany, nz, utc))
 
 def setup(bot):
