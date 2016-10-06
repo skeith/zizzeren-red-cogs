@@ -21,7 +21,7 @@ class Now:
         pst = utc + timedelta(hours=-7)
         est = utc + timedelta(hours=-3)
         germany = utc + timedelta(hours=2)
-        korea = utc + timedela(hours=9)
+        korea = utc + timedelta(hours=9)
 
         await self.bot.say("""
 Korea                            - {}    :flag_kr:
