@@ -56,7 +56,7 @@ class Slap:
           await self.bot.say("Item added.")
 
     @slap.command()
-    @checks.is_owner()
+    @checks.admin_or_permissions(administrator=True)
     async def remove(self, item):
         """Removes item"""
         if item not in self.items:
