@@ -14,7 +14,7 @@ class PPAP:
         items = [a, b, c, d]
         shuffle(items)
 
-        await self.bot.say("PPAP~
+        await self.bot.say("""PPAP~
 
 I have a {A}, I have a {B}
 Ugh~
@@ -30,7 +30,7 @@ UGHSNCSIUHNDFUISHIHDNJXNAIUHBNIJK~
 
 
 LALALALLALALLLALALALAALLALA...
-{A}{B}{C}{D} :3".format('A'=items[0], 'B'=items[1], 'C'=items[2], 'D'=items[3]))
+{A}{B}{C}{D} :3""".format('A'=items[0], 'B'=items[1], 'C'=items[2], 'D'=items[3]))
 
 def setup(bot):
     ppap = PPAP(bot)
