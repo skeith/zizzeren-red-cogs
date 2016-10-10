@@ -34,7 +34,7 @@ UGHSNCSIUHNDFUISHIHDNJXNAIUHBNIJK~
 
 
 LALALALLALALLLALALALAALLALA...
-{A}{B}{C}{D} :3""".format(A=items[0], B=items[1], C=items[2], D=items[3], AB=ab, CD=cd))
+{A}{B}{C}{D} :3""".format(A=items[0], B=items[1], C=items[2], D=items[3], AB="-".join(ab), CD="-".join(cd)))
 
 def setup(bot):
     ppap = PPAP(bot)
