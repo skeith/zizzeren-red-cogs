@@ -42,7 +42,7 @@ class Slap:
             else:
                 last = items[-1]
                 item_string = ", ".join(items[:-1])
-                ", and ".join([item_string, last])
+                item_string = ", and ".join([item_string, last])
             await self.bot.say("-slaps {} with {}-".format(user.name, item_string))
 
     @slap.command()
