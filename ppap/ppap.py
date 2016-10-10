@@ -12,17 +12,21 @@ class PPAP:
     async def ppap(self, ctx, a, b, c, d):
         """PPAP"""
         items = [a, b, c, d]
+        ab = [a, b]
+        cd = [c, d]
         shuffle(items)
+        shuffle(ab)
+        shuffle(cd)
 
         await self.bot.say("""PPAP~
 
 I have a {A}, I have a {B}
 Ugh~
-{A}-{B}\/{B}-{A} ~
+{AB} ~
 
 I have a {C}, I have a {D}
 Ughhhh\~
-{C}-{D}\/{D}-{C}\~\~\~
+{CD}\~\~\~
 
 {A}-{B} , {C}-{D}...
 UGHSNCSIUHNDFUISHIHDNJXNAIUHBNIJK~
@@ -30,7 +34,7 @@ UGHSNCSIUHNDFUISHIHDNJXNAIUHBNIJK~
 
 
 LALALALLALALLLALALALAALLALA...
-{A}{B}{C}{D} :3""".format(A=items[0], B=items[1], C=items[2], D=items[3]))
+{A}{B}{C}{D} :3""".format(A=items[0], B=items[1], C=items[2], D=items[3], AB=ab, CD=cd))
 
 def setup(bot):
     ppap = PPAP(bot)
