@@ -12,9 +12,9 @@ class PPAP:
     async def ppap(self, ctx, a, b, c, d):
         """PPAP"""
         items = [a, b, c, d]
-        ab = [a, b]
-        cd = [c, d]
         shuffle(items)
+        ab = [items[0], items[1]]
+        cd = [items[2], items[3]]
         shuffle(ab)
         shuffle(cd)
 
