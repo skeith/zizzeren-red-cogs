@@ -33,10 +33,16 @@ class Slap:
         if ctx.invoked_subcommand is None:
             if user.id == self.bot.user.id:
                 user = ctx.message.author
-                await self.bot.say("Dont make me slap you instead " + user.name)
+                await self.bot.say("Don't make me slap you instead, {}!".format(user.name))
                 return
-            await self.bot.say("-slaps " + user.name + " with " +
-                               (rndchoice(self.items) + "-"))
+            items = random.sample(set(self.items), random.randint(1, 3))
+            if len(items) is 1:
+                item_string = items[0]
+            else:
+                last = items[-1]
+                item_string = ", ".join(items[:-1])
+                ", and ".join([item_string, last])
+            await self.bot.say("-slaps {} with {}-".format(user.name, item_string)
 
     @slap.command()
     async def add(self, item):
