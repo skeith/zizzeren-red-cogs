@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
-from random import choice as rndchoice
+from random import randint as randint
+from random import sample as choose_several
 from .utils.dataIO import fileIO
 from .utils import checks
 import os
@@ -35,7 +36,7 @@ class Slap:
                 user = ctx.message.author
                 await self.bot.say("Don't make me slap you instead, {}!".format(user.name))
                 return
-            items = random.sample(set(self.items), random.randint(1, 3))
+            items = choose_several(set(self.items), randint(1, 3))
             if len(items) is 1:
                 item_string = items[0]
             else:
