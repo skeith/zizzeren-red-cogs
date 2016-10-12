@@ -28,13 +28,13 @@ I have a {C}, I have a {D}
 Ughhhh\~
 {CD}\~\~\~
 
-{A}-{B} , {C}-{D}...
+{AB} , {CD}...
 UGHSNCSIUHNDFUISHIHDNJXNAIUHBNIJK~
-{A}-{B}-{C}-{D}
+{AB}-{CD}
 
 
 LALALALLALALLLALALALAALLALA...
-{A}{B}{C}{D} :3""".format(A=items[0], B=items[1], C=items[2], D=items[3], AB="-".join(ab), CD="-".join(cd)))
+{AB}-{CD} :3""".format(A=items[0], B=items[1], C=items[2], D=items[3], AB="-".join(ab), CD="-".join(cd)))
 
 def setup(bot):
     ppap = PPAP(bot)
