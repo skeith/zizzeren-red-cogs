@@ -31,7 +31,7 @@ class AutoRespond:
 
 
     @commands.group(name="responses", pass_context=True)
-    @checks.is_owner()
+    @checks.admin_or_permissions(administrator=True)
     async def _responses(self, ctx):
         """Manage automatic responses"""
         if ctx.invoked_subcommand is None:
