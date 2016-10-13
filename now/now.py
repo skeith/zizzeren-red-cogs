@@ -22,16 +22,16 @@ class Now:
         est = utc + timedelta(hours=-3)
         germany = utc + timedelta(hours=2)
         korea = utc + timedelta(hours=9)
-
-        await self.bot.say("""
-Korea                            - {}    :flag_kr:
-Singapore/Malaysia  - {}    :flag_sg: (0verride's time!)
-PST                                - {}    :flag_us:
-EST                                - {}    :flag_ca:
-Germany/Italy            - {}    :flag_de:
-New Zealand               - {}    :flag_nz: (Kur0's time!)
-UTC                               - {}    :flag_gb:""".format(korea, singapore, pst, est, germany, nz, utc))
-
+        
+        data = "Korea :flag_kr: : {}\n".format(korea)
+        data += "Singapore/Malaysia :flag_sg: : {} - (0verride's time!)\n".format(singapore)
+        data += "PST :flag_us: : {}\n".format(pst)
+        data += "EST :flag_ca: : {}\n".format(est)
+        data += "Germany/Italy :flag_de: : {}\n".format(germany)
+        data += "New Zealand :flag_nz: : {} - (Kur0's time!)\n".format(nz)
+        data += "UTC :flag_gb: : {}\n".format(utc)
+        await.self.bot.say(data)
+        
 def setup(bot):
     now = Now(bot)
     bot.add_cog(now)
